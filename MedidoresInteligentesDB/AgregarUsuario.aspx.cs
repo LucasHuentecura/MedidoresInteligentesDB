@@ -20,7 +20,7 @@ namespace MedidoresInteligentesDB
         protected void guardarBtn_Click(object sender, EventArgs e)
         {
             // Obtener datos del formulario
-            int id = 1;
+            int id = getId();
             string rut = this.rutTxt.Text.Trim();
             string nombre = this.nombreTxt.Text.Trim();
             string correo = this.correoTxt.Text.Trim();
@@ -39,6 +39,23 @@ namespace MedidoresInteligentesDB
             // Guardar Usuario
             usuariosDAL.AgregarUsuario(usuario);
 
+            Response.Redirect("MostrarUsuarios.aspx");
+        }
+
+        private int getId()
+        {
+            // Obtener la hora actual
+            DateTime now = DateTime.Now;
+
+            // Obtener la hora, minutos y milisegundos
+            int hour = now.Hour;
+            int minute = now.Minute;
+            int millisecond = now.Millisecond;
+
+            // Combinar la hora, minutos y milisegundos en un número entero (HHMMSS)
+            int hourMinuteSecond = (hour * 10000) + (minute * 100) + millisecond;
+
+            return hourMinuteSecond;
         }
     }
 }
